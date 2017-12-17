@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
-import {database} from './firebase';
+import { database } from './firebase';
 
 class AppFirebase extends Component {
     state = {
         counter: null
     };
-    incHandler=()=>{
+    incHandler = () => {
         database.ref('/counter')
-    .set(this.state.counter + 1)
+            .set(this.state.counter + 1)
     };
-    incHandler=()=>{
+    decHandler = () => {
         database.ref('/counter')
-    .set(this.state.counter - 1)
+            .set(this.state.counter - 1)
     };
 
     componentDidMount() {
         database.ref('/counter')
-            .once('value', (snapshot) => {
+            .on('value', (snapshot) => {
                 this.setState({
                     counter: snapshot.val()
                 })
@@ -26,8 +26,8 @@ class AppFirebase extends Component {
     render() {
         return <div>
             <h1>{this.state.counter}</h1>
-            <button onClick = {this.incHandler}></button>
-            <button onClick = {this.incHandler}></button>
+            <button onClick={this.incHandler}> + </button>
+            <button onClick={this.decHandler}> - </button>
         </div>
     }
 }
